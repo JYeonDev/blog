@@ -44,11 +44,28 @@ function App() {
         );
       })}
 
-      <input
+      {/* <input
         onChange={(e) => {
           setValue(e.target.value);
         }}
-      />
+      /> */}
+
+      <div className="publish">
+        <input
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            let arr = [...title];
+            arr.unshift(value);
+            setTitle(arr);
+          }}
+        >
+          저장
+        </button>
+      </div>
       <button
         onClick={() => {
           modalChange(!modal);
