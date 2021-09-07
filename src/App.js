@@ -12,45 +12,61 @@ function App() {
   ]);
   let [heart, setHeart] = useState(0);
 
-  let posts = "강남 고기 맛집";
+  let [modal, modalChange] = useState(false);
+
+  let [clickTitle, setClickTitle] = useState(0);
+
+  let [value, setValue] = useState("");
 
   return (
     <div className="App">
-      <div className="black-nav">
-        <div>개발 Blog</div>
-      </div>
-      <div className="list">
-        <h3>
-          {title[0]}{" "}
-          <span
-            onClick={() => {
-              setHeart(heart + 1);
-            }}
-          >
-            ♥
-          </span>{" "}
-          {heart}
-        </h3>
-        <p>2월 17일 발행</p>
-        <hr />
-      </div>
-      <div className="list">
-        <h3>{title[1]}</h3>
-        <p>8월 25일 발행</p>
-        <hr />
-      </div>
-      <div className="list">
-        <h3>{title[2]}</h3>
-        <p>6월 27일 발행</p>
-        <hr />
-      </div>
+      {title.map((i, n) => {
+        return (
+          <div className="list" key={n}>
+            <h3
+              onClick={() => {
+                setClickTitle(n);
+              }}
+            >
+              {i}
+              <span
+                onClick={() => {
+                  setHeart(heart + 1);
+                }}
+              >
+                ♥
+              </span>{" "}
+              {heart}
+            </h3>
+            <p>8월 25일 발행</p>
+            <hr />
+          </div>
+        );
+      })}
+
+      <input
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
       <button
         onClick={() => {
-          setTitle(["여자 아이돌 모음", "무한도전 다시보기", "7080 노래추천"]);
+          modalChange(!modal);
         }}
       >
-        버튼
+        열고닫기
       </button>
+      {modal === true ? <Modal title={title} clickTitle={clickTitle} /> : null}
+    </div>
+  );
+}
+
+function Modal(props) {
+  return (
+    <div className="modal">
+      <h2>{props.title[props.clickTitle]}</h2>
+      <p>날짜</p>
+      <p>상세내용</p>
     </div>
   );
 }
